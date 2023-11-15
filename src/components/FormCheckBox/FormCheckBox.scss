@@ -1,0 +1,33 @@
+.checkBoxPanel {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.formCheckBox {
+
+    opacity: 0;
+}
+
+.formCheckBox:checked+.formCheckBoxLabel::before {
+    content: url("../../img/check.png");
+    background-color: black;
+}
+
+.formCheckBoxLabel {
+    margin-top: 20px;
+    display: flex;
+    cursor: pointer;
+    color: white;
+
+}
+
+.formCheckBoxLabel::before {
+    width: 20px;
+    height: 20px;
+    margin: 0 20px 0 50px;
+    content: '';
+    background-color: #eec110;
+    border: 1px solid white;
+}
