@@ -7,6 +7,7 @@ export const SwitchPanel = ({ signIn, setSignIn }: SwitchPanelProps) => {
 
     const signInClasses = `accessBtn ${signIn ? "accessBtnActive" : ""}`;
     const signUpClasses = `accessBtn ${!signIn ? "accessBtnActive" : ""}`;
+
     return (
         <div className="switchPanel">
             <button id="signIn" onClick={() => setSignIn(true)} className={signInClasses} type="button">SIGN IN</button>

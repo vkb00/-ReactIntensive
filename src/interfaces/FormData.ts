@@ -1,0 +1,6 @@
+export interface FormData {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    confirmPassword?: string,
+}

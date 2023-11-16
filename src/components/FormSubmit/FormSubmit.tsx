@@ -1,7 +1,7 @@
 import React from 'react'
 import "./FormSubmit.scss"
 interface PropsFormSubmit {
-    name: string
+    name: string;
 }
 export const FormSubmit = ({ name }: PropsFormSubmit) => {
     return (
