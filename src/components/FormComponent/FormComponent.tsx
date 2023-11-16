@@ -5,33 +5,36 @@ import FromInput from "../FormInput/FormInput";
 import FormCheckBox from "../FormCheckBox/FormCheckBox";
 import FormSubmit from "../FormSubmit/FormSubmit";
 import { useState } from "react";
+import SwitchPanel from "../SwitchPanel/SwitchPanel";
 interface FormData {
     email: string,
-    password: string
+    password: string,
+    rememberMe:boolean,
+    confirmPassword?:string,
 }
 export const FormComponent = () => {
-    const { register, handleSubmit } = useForm();
-    const [singIn, setSignIn] = useState<Boolean>(true);
-    const onSubmit = (data: any) => {
+    const { register, handleSubmit } = useForm<FormData>();
+    const [signIn, setSignIn] = useState<boolean>(true);
+    const onSubmit = (data: FormData) => {
 
         console.log(data)
     }
+    const handlSignIn = (value: boolean) => {
+        setSignIn(value);
+    }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="switchPanel">
-                <button id="signIn" onClick={() => setSignIn(true)} className="accessBtn accessBtnActive">SIGN IN</button>
-                <button id="signUp" onClick={() => setSignIn(false)} className="accessBtn">SIGN UP</button>
-            </div>
 
+            <SwitchPanel signIn={signIn} setSignIn={handlSignIn} />
 
 
             <FromInput register={register} option="email" name="Email" />
             <FromInput register={register} option="password" name="Password" />
-            {!singIn &&
-                <FromInput register={register} option="password" name="Password" />
+            {!signIn &&
+                <FromInput register={register} option="confirmPassword" name="Confirm password" />
             }
             <FormCheckBox register={register} option="rememberMe" />
-            <FormSubmit name={singIn ? "SIGN IN" : "SING UP"} />
+            <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} />
 
         </form>
     )

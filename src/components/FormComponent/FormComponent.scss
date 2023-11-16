@@ -15,25 +15,7 @@ form {
 
 }
 
-.switchPanel {
-    display: flex;
-    margin: 30px 30px;
-}
 
-.accessBtn {
-    margin-left: 35px;
-    padding: 0;
-    outline: none;
-    border: 0;
-    background: transparent;
-    color: #9290af;
-}
-
-.accessBtnActive {
-    border-bottom: 2px solid #E0BB43;
-    color: white;
-
-}
 
 .accessBtn:hover {
     cursor: pointer;
