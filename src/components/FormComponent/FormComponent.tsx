@@ -1,5 +1,5 @@
 
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { useState } from "react";
 import FormInput from "../FormInput/FormInput";
 import FormCheckBox from "../FormCheckBox/FormCheckBox";
@@ -8,35 +8,57 @@ import SwitchPanel from "../SwitchPanel/SwitchPanel";
 import "./FormComponent.scss";
 import { FormData } from "../../interfaces/FormData"
 
-export const FormComponent = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>();
-    const [signIn, setSignIn] = useState<boolean>(true);
+const fetchRequestToAuth = async (url: string, formData: any) => {
+    const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+    return await response.json();
+}
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
+export const FormComponent = () => {
+    const methods = useForm<FormData>();
+    const [signIn, setSignIn] = useState<boolean>(true);
+    const signInUrl = "https://63846cc83fa7acb14ff406a3.mockapi.io/signIn";
+    const signUpUrl = "https://63846cc83fa7acb14ff406a3.mockapi.io/signUp";
+
+    const onSubmit = async (formData: FormData) => {
+        if (signIn) {
+            const data = await fetchRequestToAuth(signInUrl, formData);
+            alert("Вы авторизованы!"+JSON.stringify(data));
+        }
+        else {
+            const data = await fetchRequestToAuth(signUpUrl, formData);
+            alert("Вы зарегестрированы!"+JSON.stringify(data));
+        }
 
     }
     const handlReset = () => {
-        reset();
+        methods.reset();
     }
     const handlSignIn = (value: boolean) => {
         setSignIn(value);
         handlReset();
     }
-
+    
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 
             <SwitchPanel signIn={signIn} setSignIn={handlSignIn} />
-            <FormInput register={register} option="email" label="Email" type="email" errors={errors} />
-            <FormInput register={register} option="password" label="Password" type="password" errors={errors} />
+            <FormInput register={methods.register} option="email" label="Email" type="email" errors={methods.formState.errors} />
+            <FormInput register={methods.register} option="password" label="Password" type="password" errors={methods.formState.errors} />
             {!signIn &&
-                <FormInput register={register} option="confirmPassword" label="Confirm password" type="password" errors={errors} />
+                <FormInput register={methods.register} option="confirmPassword" label="Confirm password" type="password" errors={methods.formState.errors} />
             }
-            <FormCheckBox register={register} option="rememberMe" />
+            <FormCheckBox register={methods.register} option="rememberMe" />
             <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} />
 
         </form>
+        </FormProvider>
     )
 }
 
