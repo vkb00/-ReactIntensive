@@ -28,11 +28,11 @@ export const FormComponent = () => {
     const onSubmit = async (formData: FormData) => {
         if (signIn) {
             const data = await fetchRequestToAuth(signInUrl, formData);
-            alert("Вы авторизованы!"+JSON.stringify(data));
+            alert("Вы авторизованы!" + JSON.stringify(data));
         }
         else {
             const data = await fetchRequestToAuth(signUpUrl, formData);
-            alert("Вы зарегестрированы!"+JSON.stringify(data));
+            alert("Вы зарегестрированы!" + JSON.stringify(data));
         }
 
     }
@@ -43,21 +43,20 @@ export const FormComponent = () => {
         setSignIn(value);
         handlReset();
     }
-    
+
     return (
         <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+            <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+                <SwitchPanel signIn={signIn} setSignIn={handlSignIn} />
+                <FormInput register={methods.register} option="email" label="Email" type="email" errors={methods.formState.errors} />
+                <FormInput register={methods.register} option="password" label="Password" type="password" errors={methods.formState.errors} />
+                {!signIn &&
+                    <FormInput register={methods.register} option="confirmPassword" label="Confirm password" type="password" errors={methods.formState.errors} />
+                }
+                <FormCheckBox register={methods.register} option="rememberMe" />
+                <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} />
 
-            <SwitchPanel signIn={signIn} setSignIn={handlSignIn} />
-            <FormInput register={methods.register} option="email" label="Email" type="email" errors={methods.formState.errors} />
-            <FormInput register={methods.register} option="password" label="Password" type="password" errors={methods.formState.errors} />
-            {!signIn &&
-                <FormInput register={methods.register} option="confirmPassword" label="Confirm password" type="password" errors={methods.formState.errors} />
-            }
-            <FormCheckBox register={methods.register} option="rememberMe" />
-            <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} />
-
-        </form>
+            </form>
         </FormProvider>
     )
 }
