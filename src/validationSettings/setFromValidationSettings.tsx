@@ -1,7 +1,7 @@
-import { FieldValues, UseFormGetValues } from "react-hook-form";
+import { FieldValues, RegisterOptions, UseFormGetValues } from "react-hook-form";
+import { FormData } from "../interfaces/FormData"
 
-
-export const setValidation = (validationName: string, getFormValues: UseFormGetValues<FieldValues>) => {
+export const setValidation = (validationName: string, getFormValues: UseFormGetValues<FieldValues>):RegisterOptions<FormData> => {
     switch (validationName) {
         case "email":
             return {
@@ -32,10 +32,11 @@ export const setValidation = (validationName: string, getFormValues: UseFormGetV
                     value: 3,
                     message: 'Minimum length: 8 characters',
                 },
-                validate: (value: any) => value === getFormValues("password") || "Passwords must match",
+                validate: (value) => value === getFormValues("password") || "Passwords must match",
             }
 
         default:
-            break;
+            return {}
+        
     }
 }

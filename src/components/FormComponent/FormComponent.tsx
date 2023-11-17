@@ -8,7 +8,7 @@ import SwitchPanel from "../SwitchPanel/SwitchPanel";
 import "./FormComponent.scss";
 import { FormData } from "../../interfaces/FormData"
 
-const fetchRequestToAuth = async (url: string, formData: any) => {
+const fetchRequestToAuth = async (url: string, formData: FormData) => {
     const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify(formData),

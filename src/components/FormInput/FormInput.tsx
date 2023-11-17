@@ -20,9 +20,7 @@ export const FormInput = ({ register, option, label, type, errors }: FormInputPr
         <div className='formInputPanel'>
             <label htmlFor={id} className='formInputLabel'>{label}</label>
             <input id={id} className='formInput' type={type} {
-                ...register(option, setValidation(option, getValues)
-
-                )} />
+                ...register(option, setValidation(option, getValues))} />
             {errors[option] && <p className="errorMessage">{errors[option]?.message}</p>}
         </div>
     )
