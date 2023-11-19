@@ -11,7 +11,7 @@ export const setValidation = (validationName: string, getFormValues: UseFormGetV
                     message: 'Invalid email address try example@gmail.com',
                 },
                 minLength: {
-                    value: 3,
+                    value: 8,
                     message: 'Minimum length: 8 characters',
                 },
             };
@@ -20,7 +20,7 @@ export const setValidation = (validationName: string, getFormValues: UseFormGetV
             return {
                 required: 'Required field',
                 minLength: {
-                    value: 3,
+                    value: 8,
                     message: 'Minimum length: 8 characters',
                 },
             };
@@ -29,7 +29,7 @@ export const setValidation = (validationName: string, getFormValues: UseFormGetV
             return {
                 required: 'Required field',
                 minLength: {
-                    value: 3,
+                    value: 8,
                     message: 'Minimum length: 8 characters',
                 },
                 validate: (value) => value === getFormValues("password") || "Passwords must match",
