@@ -24,15 +24,19 @@ export const FormComponent = () => {
     const [signIn, setSignIn] = useState<boolean>(true);
     const signInUrl = "https://63846cc83fa7acb14ff406a3.mockapi.io/signIn";
     const signUpUrl = "https://63846cc83fa7acb14ff406a3.mockapi.io/signUp";
-
+    const [isSubmitedForm, setIsSubmitedForm] = useState(false);
     const onSubmit = async (formData: FormData) => {
+        setIsSubmitedForm(true);
         if (signIn) {
             const data = await fetchRequestToAuth(signInUrl, formData);
             alert("Вы авторизованы!" + JSON.stringify(data));
+            setIsSubmitedForm(false);
+
         }
         else {
             const data = await fetchRequestToAuth(signUpUrl, formData);
             alert("Вы зарегестрированы!" + JSON.stringify(data));
+            setIsSubmitedForm(false);
         }
 
     }
@@ -54,7 +58,7 @@ export const FormComponent = () => {
                     <FormInput register={methods.register} option="confirmPassword" label="Confirm password" type="password" errors={methods.formState.errors} />
                 }
                 <FormCheckBox register={methods.register} option="rememberMe" />
-                <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} />
+                <FormSubmit name={signIn ? "SIGN IN" : "SING UP"} isSubmitedForm={isSubmitedForm} />
 
             </form>
         </FormProvider>

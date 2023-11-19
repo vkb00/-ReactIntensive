@@ -1,13 +1,13 @@
 import React from 'react'
 import "./FormSubmit.scss"
-import { useFormContext } from 'react-hook-form';
 interface PropsFormSubmit {
     name: string;
+    isSubmitedForm: boolean;
 }
-export const FormSubmit = ({ name }: PropsFormSubmit) => {
-    const { formState } = useFormContext();
+export const FormSubmit = ({ name, isSubmitedForm }: PropsFormSubmit) => {
+   
     return (
-        <button disabled={formState.isSubmitted} className='submitBtn' type="submit">{name}</button>
+        <button disabled={isSubmitedForm} className='submitBtn' type="submit">{name}</button>
     )
 }
 
